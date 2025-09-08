@@ -4,11 +4,11 @@ from schemas.movies import Movie
 from .crud import MOVIES
 
 
-def find_movie(movie_id: int) -> Movie | None:
+def find_movie(slug: str) -> Movie | None:
     for movie in MOVIES:
-        if movie.id == movie_id:
+        if movie.slug == slug:
             return movie
     raise HTTPException(
         status.HTTP_404_NOT_FOUND,
-        f"Movie {movie_id!r} not found",
+        f"Movie {slug!r} not found",
     )

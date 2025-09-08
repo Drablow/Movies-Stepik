@@ -27,7 +27,6 @@ def get_all_movies():
 )
 def create_movie(movie: MovieCreate):
     return Movie(
-        id=randint(4, 10),
         **movie.model_dump(),
     )
 
