@@ -1,9 +1,15 @@
 import uvicorn
+
 from fastapi import FastAPI, Request
+
+from api import router as api_router
+
 
 app = FastAPI(
     title="Movies Catalog",
 )
+
+app.include_router(api_router)
 
 
 @app.get("/")
