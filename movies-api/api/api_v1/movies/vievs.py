@@ -4,7 +4,7 @@ from fastapi import Depends, APIRouter, status, Form
 from random import randint
 
 
-from schemas.movies import Movie
+from schemas.movies import Movie, MovieCreate
 
 from .crud import MOVIES
 from .dependecies import find_movie
@@ -25,18 +25,10 @@ def get_all_movies():
     response_model=Movie,
     status_code=status.HTTP_201_CREATED,
 )
-def create_movie(
-    title: Annotated[str, Form()],
-    description: Annotated[str, Form()],
-    genre: Annotated[str, Form()],
-    year: Annotated[int, Form()],
-):
+def create_movie(movie: MovieCreate):
     return Movie(
         id=randint(4, 10),
-        title=title,
-        description=description,
-        genre=genre,
-        year=year,
+        **movie.model_dump(),
     )
 
 
