@@ -23,7 +23,18 @@ class MovieCreate(BaseModel):
 
 
 class MovieUpdate(BaseModel):
+    """
+    Модель для обновления информации о фильме
+    """
+
     title: str
     description: str
     genre: str
     year: int
+
+
+class MoviePartialUpdate(BaseModel):
+    title: str | None = None
+    description: str | None = None
+    genre: str | None = None
+    year: int | None = None
