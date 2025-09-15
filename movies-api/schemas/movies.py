@@ -20,3 +20,10 @@ class MovieCreate(BaseModel):
     description: str
     genre: str
     year: int
+
+
+class MovieUpdate(BaseModel):
+    title: str
+    description: str
+    genre: str
+    year: int
