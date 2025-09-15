@@ -1,11 +1,8 @@
-from typing import Annotated
-from fastapi import Depends, APIRouter, status
-
+from fastapi import  APIRouter, status
 
 from schemas.movies import Movie, MovieCreate
 
-from .crud import storage
-from .dependecies import find_movie
+from api.api_v1.movies.crud import storage
 
 router = APIRouter(
     prefix="/movies",
@@ -27,6 +24,4 @@ def create_movie(movie: MovieCreate):
     return storage.create(movie)
 
 
-@router.get("/{movie_id}", response_model=Movie)
-def get_movies_by_id(movie: Annotated[Movie, Depends(find_movie)]):
-    return movie
+

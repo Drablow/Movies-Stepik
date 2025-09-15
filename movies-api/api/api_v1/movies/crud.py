@@ -18,12 +18,6 @@ class MovieStorage(BaseModel):
         self.slug_to_movie[movie.slug] = movie
         return movie
 
-    def update(self, movie: Movie, movie_in: MovieUpdate) -> Movie:
-        for field_name, value in movie_in:
-            setattr(movie, field_name, value)
-
-        return movie
-
 
 storage = MovieStorage()
 
