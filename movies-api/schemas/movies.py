@@ -3,7 +3,7 @@ from pydantic import BaseModel
 
 
 class Movie(BaseModel):
-    id: int
+    slug: str
     title: str
     description: str
     genre: str
@@ -15,6 +15,7 @@ class MovieCreate(BaseModel):
     Модель для создания фильма.
     """
 
+    slug: str
     title: str
     description: str
     genre: str
