@@ -1,39 +1,25 @@
+from fastapi import APIRouter
+
 from typing import Annotated
 from fastapi import Depends, APIRouter, status
 
 
-from schemas.movies import Movie, MovieCreate
+from schemas.movies import Movie
 
-from .crud import storage
-from .dependecies import find_movie
+from api.api_v1.movies.crud import storage
+from api.api_v1.movies.dependecies import find_movie
 
 router = APIRouter(
-    prefix="/movies",
-    tags=["Movies"],
+    prefix="/{slug}"
 )
 
-
-@router.get("/", response_model=list[Movie])
-def get_all_movies() -> list[Movie]:
-    return storage.get()
-
-
-@router.post(
-    "/",
-    response_model=Movie,
-    status_code=status.HTTP_201_CREATED,
-)
-def create_movie(movie: MovieCreate):
-    return storage.create(movie)
-
-
-@router.get("/{movie_id}", response_model=Movie)
+@router.get("/", response_model=Movie)
 def get_movies_by_id(movie: Annotated[Movie, Depends(find_movie)]):
     return movie
 
 
 @router.delete(
-    "/{slug}/",
+    "/",
     status_code=status.HTTP_204_NO_CONTENT,
     responses={
         status.HTTP_404_NOT_FOUND: {
