@@ -4,7 +4,12 @@ from typing import Annotated
 from fastapi import Depends, APIRouter, status
 
 
-from schemas.movies import Movie, MovieUpdate, MoviePartialUpdate
+from schemas.movies import (
+    Movie,
+    MovieUpdate,
+    MoviePartialUpdate,
+    MovieRead
+)
 
 from api.api_v1.movies.crud import storage
 from api.api_v1.movies.dependecies import find_movie
@@ -17,7 +22,7 @@ MovieBySlug = Annotated[
 ]
 
 
-@router.get("/", response_model=Movie)
+@router.get("/", response_model=MovieRead)
 def get_movies_by_id(movie: MovieBySlug):
     return movie
 
@@ -42,12 +47,12 @@ def delete_movie(movie: MovieBySlug) -> None:
     storage.delete(movie=movie)
 
 
-@router.put("/", response_model=Movie)
+@router.put("/", response_model=MovieRead)
 def update_movie_details(movie: MovieBySlug, movie_in: MovieUpdate):
     return storage.update(movie=movie, movie_in=movie_in)
 
 
-@router.patch("/", response_model=Movie)
+@router.patch("/", response_model=MovieRead)
 def update_movie_detail_partial(
     movie: MovieBySlug,
     movie_in: MoviePartialUpdate,

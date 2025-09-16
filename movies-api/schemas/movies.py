@@ -2,7 +2,7 @@ from typing import Annotated
 from pydantic import BaseModel
 
 
-class Movie(BaseModel):
+class MovieBase(BaseModel):
     slug: str
     title: str
     description: str
@@ -10,7 +10,16 @@ class Movie(BaseModel):
     year: int
 
 
-class MovieCreate(BaseModel):
+class Movie(MovieBase):
+    slug: str
+    title: str
+    description: str
+    genre: str
+    year: int
+    notes: str = ""
+
+
+class MovieCreate(MovieBase):
     """
     Модель для создания фильма.
     """
@@ -22,7 +31,7 @@ class MovieCreate(BaseModel):
     year: int
 
 
-class MovieUpdate(BaseModel):
+class MovieUpdate(MovieBase):
     """
     Модель для обновления информации о фильме
     """
@@ -33,8 +42,16 @@ class MovieUpdate(BaseModel):
     year: int
 
 
-class MoviePartialUpdate(BaseModel):
+class MoviePartialUpdate(MovieBase):
     title: str | None = None
     description: str | None = None
     genre: str | None = None
     year: int | None = None
+
+
+class MovieRead(MovieBase):
+    slug: str
+    title: str
+    description: str
+    genre: str
+    year: int
